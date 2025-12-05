@@ -20,6 +20,7 @@ namespace ConsoleInterface
 
         public ConsoleInterface()
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             Options = new Dictionary<uint, Data>();
         }
 
@@ -74,12 +75,12 @@ namespace ConsoleInterface
             Options.Add(index, data);
         }
 
-        private uint GetLastIndex()
+        public uint GetLastIndex()
         {
             if (Options.Keys.Count == 0) return 0;
             return Options.Keys.Max();
         }
-        public uint ReadUint()
+        public uint ReadUint(uint min = 0, uint max = Int32.MaxValue)
         {
             uint result = 0;
             bool exit = true;
@@ -95,6 +96,11 @@ namespace ConsoleInterface
                 {
                     Console.WriteLine("Введіть ціле число");
                     exit = false;
+                }
+                if(result < min || result > max)
+                {
+                    Console.WriteLine("Введіть ціле число між " + min + " і " + max);
+                    continue;
                 }
                 if (exit) break;
             }
