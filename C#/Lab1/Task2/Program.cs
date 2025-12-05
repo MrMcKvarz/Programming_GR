@@ -23,37 +23,49 @@ namespace Lab1
 
         public double UAHtoUSD(double uah)
         {
-            return uah * usdER;
+            return Math.Round(uah / usdER, 2);
         }
         public double UAHtoEUR(double uah)
         {
-            return uah * eurER;
+            return Math.Round(uah / eurER, 2);
         }
         public double UAHtoPLN(double uah)
         {
-            return uah * plnER;
+            return Math.Round(uah / plnER, 2);
         }
 
         static void Main(string[] args)
         {
             Converter converter = new Converter(41.7, 48.5, 11.6);
             ConsoleInterface<double> consoleInterface = new ConsoleInterface<double>();
-            consoleInterface.AddOption("Конвертувати гривні в долари", (value) => converter.UAHtoUSD(value));
-            consoleInterface.AddOption("Конвертувати гривні в євро", (value) => converter.UAHtoUSD(value));
-            consoleInterface.AddOption("Конвертувати гривні в злоті", (value) => converter.UAHtoUSD(value));
+            consoleInterface.AddOption("Конвертувати гривні в долари", (value) => {
+                double usd = converter.UAHtoUSD(value);
+                Console.WriteLine(value + " гривень коштують " + usd + " доларів.");
+            });
+            consoleInterface.AddOption("Конвертувати гривні в євро", (value) => {
+                double eur = converter.UAHtoEUR(value);
+                Console.WriteLine(value + " гривень коштують " + eur + " євро.");
+            });
+            consoleInterface.AddOption("Конвертувати гривні в злоті", (value) => {
+                double pln = converter.UAHtoPLN(value);
+                Console.WriteLine(value + " гривень коштують " + pln + " злотих.");
+            });
 
             consoleInterface.FinalizeOptions();
-            consoleInterface.PrintOptions();
 
             uint selection = 0;
             double money = 0;
             do
             {
-                selection = (uint)Console.Read();
+                consoleInterface.PrintOptions();
+                selection = consoleInterface.ReadUint();
+                Console.Clear();
                 consoleInterface.PrintOption(selection);
                 Console.WriteLine("Введіть кількість коштів: ");
-                money = Convert.ToDouble(Console.Read());
+                money = consoleInterface.ReadDouble();
                 consoleInterface.Select(selection, money);
+                Console.ReadKey();
+                Console.Clear();
 
             } while (true);
 

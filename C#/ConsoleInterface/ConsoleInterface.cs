@@ -18,6 +18,11 @@ namespace ConsoleInterface
 
         private Dictionary<uint, Data> Options;
 
+        public ConsoleInterface()
+        {
+            Options = new Dictionary<uint, Data>();
+        }
+
         public void AddOption(string description, Action<T> callback)
         {
             Data data;
@@ -71,7 +76,50 @@ namespace ConsoleInterface
 
         private uint GetLastIndex()
         {
+            if (Options.Keys.Count == 0) return 0;
             return Options.Keys.Max();
+        }
+        public uint ReadUint()
+        {
+            uint result = 0;
+            bool exit = true;
+            while (true)
+            {
+                try
+                {
+                    exit = true;
+                    string? console_line = Console.ReadLine();
+                    result = UInt32.Parse(console_line);
+                }
+                catch (Exception fe)
+                {
+                    Console.WriteLine("Введіть ціле число");
+                    exit = false;
+                }
+                if (exit) break;
+            }
+            return result;
+        }
+        public double ReadDouble()
+        {
+            double result = 0;
+            bool exit = true;
+            while (true)
+            {
+                try
+                {
+                    exit = true;
+                    string? console_line = Console.ReadLine();
+                    result = Double.Parse(console_line);
+                }
+                catch (Exception fe)
+                {
+                    Console.WriteLine("Введіть число");
+                    exit = false;
+                }
+                if (exit) break;
+            }
+            return result;
         }
 
     }
