@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\ConsoleInterface\ConsoleInterface.csproj" />
-  </ItemGroup>
-
 </Project>

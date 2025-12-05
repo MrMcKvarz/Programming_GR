@@ -6,9 +6,9 @@ class User
     public string Login { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public int Age { get; set; }
+    public uint Age { get; set; }
     public DateTime RegistrationDate { get; }
-    public User(string login, string firstName, string lastName, int age)
+    public User(string login, string firstName, string lastName, uint age)
     {
         Login = login;
         FirstName = firstName;
@@ -25,10 +25,6 @@ class User
         Console.WriteLine($"Вік: {Age}");
         Console.WriteLine($"Дата заповнення анкети: {RegistrationDate}");
     }
-}
-
-class Program
-{
     static void Main()
     {
         ConsoleInterface<double> consoleInterface = new ConsoleInterface<double>();
