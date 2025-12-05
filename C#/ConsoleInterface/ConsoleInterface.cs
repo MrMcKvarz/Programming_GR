@@ -15,6 +15,7 @@ namespace ConsoleInterface
             public string description;
             public Action<T> func;
         }
+        private Action<T> func = (T) => { };
 
         private Dictionary<uint, Data> Options;
 
@@ -24,9 +25,11 @@ namespace ConsoleInterface
             Options = new Dictionary<uint, Data>();
         }
 
-        public void AddOption(string description, Action<T> callback)
+        public void AddOption(string description, Action<T> callback = null)
         {
             Data data;
+            if (callback == null)
+                callback = func;
             data.description = description;
             data.func = callback;
             uint index = GetLastIndex() + 1;
